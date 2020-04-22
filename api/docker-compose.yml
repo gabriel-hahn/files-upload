@@ -1,0 +1,25 @@
+version: '3'
+
+services:
+  mongo:
+    image: mongo
+    restart: always
+    ports:
+      - 27017:27017
+    volumes:
+      - mongodb_data:/data/db
+
+  mongo-express:
+    image: mongo-express
+    restart: always
+    ports:
+      - 8081:8081
+    links:
+      - mongo
+    environment:
+      ME_CONFIG_BASICAUTH_USERNAME: gabrielhahn
+      ME_CONFIG_BASICAUTH_PASSWORD: mongodb
+      ME_CONFIG_MONGODB_PORT: 27017
+
+volumes:
+  mongodb_data:
