@@ -10,7 +10,7 @@
     "filesize": "^6.1.0",
     "lodash": "^4.17.15",
     "react": "^16.13.1",
-    "react-circular-progressbar": "^2.0.3",
+    "react-circular-progressbar": "^1.0.0",
     "react-dom": "^16.13.1",
     "react-dropzone": "^10.2.2",
     "react-icons": "^3.10.0",
