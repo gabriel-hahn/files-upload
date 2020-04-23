@@ -10,6 +10,12 @@ const dragReject = css`
   border-color: ${colors.mainRed};
 `;
 
+const messageColors = {
+  default: colors.darkGray,
+  error: colors.mainRed,
+  success: colors.mainGreen,
+};
+
 export const DropContainer = styled.div.attrs({
   className: 'dropzone'
 })`
@@ -24,5 +30,9 @@ export const DropContainer = styled.div.attrs({
 `;
 
 export const UploadMessage = styled.p`
-
+  display: flex;
+  color: ${props => messageColors[props.type || 'default']};
+  justify-content: center;
+  align-items: center;
+  padding: 15px 0;
 `;
