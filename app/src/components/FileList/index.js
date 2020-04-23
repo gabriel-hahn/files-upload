@@ -5,39 +5,48 @@ import { MdCheckCircle, MdError, MdLink } from 'react-icons/md';
 import { colors } from '../../styles/variables';
 import { Container, FileInfo, Preview } from './styles';
 
-const FileList = () => (
+const FileList = ({ files }) => (
   <Container>
-    <li>
-      <FileInfo>
-        <Preview src="http://localhost:3333/files/c0c1385c8221501d034695c56bfef457-313696.jpg" />
+    { files.map((uploadedFile, index) => (
+      <li key={index}>
+        <FileInfo>
+          <Preview src={uploadedFile.preview} />
+          <div>
+            <strong>{uploadedFile.name}</strong>
+            <span>
+              {uploadedFile.readableSize}{' '}
+              {!!uploadedFile.url && <button onClick={() => {}}>Delete</button>}
+            </span>
+          </div>
+        </FileInfo>
+
         <div>
-          <strong>profile.png</strong>
-          <span>64kb <button onClick={() => {}}>Delete</button></span>
+          {!uploadedFile.uploaded && !uploadedFile.error && (
+            <CircularProgressbar
+              styles={{
+                root: { width: 24 },
+                path: { stroke: colors.mainGreen },
+              }}
+              strokeWidth={10}
+              percentage={uploadedFile.progress}
+            />
+          )}
+
+          {uploadedFile.url && (
+            <a
+              href="http://localhost:3333/files/c0c1385c8221501d034695c56bfef457-313696.jpg"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <MdLink style={{ marginRight: 8 }} size={24} color="#222" />
+            </a>
+          )}
+
+          {uploadedFile.uploaded && <MdCheckCircle size={24} color={colors.mainGreen} />}
+          {uploadedFile.error && <MdError size={24} color={colors.mainRed} />}
         </div>
-      </FileInfo>
-
-      <div>
-        <CircularProgressbar
-          styles={{
-            root: { width: 24 },
-            path: { stroke: colors.mainGreen },
-          }}
-          strokeWidth={10}
-          percentage={60}
-        />
-
-        <a
-          href="http://localhost:3333/files/c0c1385c8221501d034695c56bfef457-313696.jpg"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <MdLink style={{ marginRight: 8 }} size={24} color="#222" />
-        </a>
-
-        <MdCheckCircle size={24} color={colors.mainGreen} />
-        <MdError size={24} color={colors.mainRed} />
-      </div>
-    </li>
+      </li>
+    )) }
   </Container>
 );
 

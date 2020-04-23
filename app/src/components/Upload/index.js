@@ -3,7 +3,7 @@ import Dropzone from 'react-dropzone';
 
 import { DropContainer, UploadMessage } from './styles';
 
-const Upload = () => {
+const Upload = ({ onUpload }) => {
   const renderDragMessage = (isDragActive, isDragReject) => {
     if (!isDragActive) {
       return <UploadMessage>Drag your images here</UploadMessage>
@@ -17,8 +17,8 @@ const Upload = () => {
   };
 
   return (
-    <Dropzone accept="image/*" onDropAccepted={() => {}}>
-      { ({ getRootProps, getInputProps, isDragActive, isDragReject }) => (
+    <Dropzone accept="image/*" onDropAccepted={onUpload}>
+      {({ getRootProps, getInputProps, isDragActive, isDragReject }) => (
         <DropContainer
           {...getRootProps()}
           isDragActive={isDragActive}
@@ -28,7 +28,7 @@ const Upload = () => {
 
           {renderDragMessage(isDragActive, isDragReject)}
         </DropContainer>
-      ) }
+      )}
     </Dropzone>
   )
 };
