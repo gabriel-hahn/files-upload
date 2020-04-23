@@ -41,7 +41,7 @@ const storageTypes = {
 
 module.exports = {
   dest: PATH,
-  storage: storageTypes.s3,
+  storage: storageTypes.local,
   limits: {
     fileSize: FIVE_MB,
   },

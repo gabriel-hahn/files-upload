@@ -3,6 +3,7 @@ require('dotenv').config();
 const mongoose = require('mongoose');
 const express = require('express');
 const morgan = require('morgan');
+const path = require('path');
 const app = express();
 
 const routes = require('./routes');
@@ -14,6 +15,7 @@ mongoose.connect('mongodb://localhost:27017/upload');
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(morgan('dev'));
+app.use('/files', express.static(path.resolve(__dirname, '..', 'tmp', 'uploads')));
 
 app.use(routes);
 
