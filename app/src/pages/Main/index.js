@@ -10,6 +10,7 @@ import { Container, Content } from './styles';
 
 const Main = () => {
   const [uploadedFiles, setUploadedFiles] = useState([]);
+  const [uploadingFiles, setUploadingFiles] = useState([]);
 
   const updateFile = (id, data) => {
     setUploadedFiles(uploadedFiles.map((uploadedFile) => (
@@ -33,9 +34,11 @@ const Main = () => {
   };
 
   useEffect(() => {
-    const filesToUpdateStatus = uploadedFiles.filter(file => !file.error && !file.uploaded && file.progress === 0);
+    uploadingFiles.forEach(handleProcessUpload);
 
-    filesToUpdateStatus.forEach(handleProcessUpload);
+    if (uploadingFiles.length > 0) {
+      setUploadingFiles([]);
+    }
   }, [uploadedFiles]);
 
   const handleUpload = (files) => {
@@ -51,6 +54,7 @@ const Main = () => {
       url: null,
     }));
 
+    setUploadingFiles([...uploadingFiles, ...newFiles]);
     setUploadedFiles([...uploadedFiles, ...newFiles]);
   };
 
