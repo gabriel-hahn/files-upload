@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import filesize from 'filesize';
+import { uniqueId } from 'lodash';
 
 import api from '../../services/api';
 import Upload from '../../components/Upload';
@@ -31,21 +32,26 @@ const Main = () => {
     });
   };
 
+  useEffect(() => {
+    const filesToUpdateStatus = uploadedFiles.filter(file => !file.error && !file.uploaded && file.progress === 0);
+
+    filesToUpdateStatus.forEach(handleProcessUpload);
+  }, [uploadedFiles]);
+
   const handleUpload = (files) => {
-    const uploadingFiles = files.map(file => ({
+    const newFiles = files.map(file => ({
       file,
       name: file.name,
       readableSize: filesize(file.size),
       preview: URL.createObjectURL(file),
+      id: uniqueId(),
       progress: 0,
       uploaded: false,
       error: false,
       url: null,
     }));
 
-    setUploadedFiles([...uploadedFiles, ...uploadingFiles]);
-
-    uploadingFiles.forEach(handleProcessUpload);
+    setUploadedFiles([...uploadedFiles, ...newFiles]);
   };
 
   return (
