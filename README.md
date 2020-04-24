@@ -1,6 +1,6 @@
-# Files Upload Application
+# Images Upload Application
 
-A ReactJS and NodeJS project to upload files using Amazon S3.
+A ReactJS and NodeJS project to upload images using Amazon S3 :open_file_folder:
 
 <p align="center">
     <img src="https://media.giphy.com/media/Ige1R74p2mbPzxell7/source.gif">
