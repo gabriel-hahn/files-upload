@@ -50,7 +50,7 @@ yarn start
 
 ## Online
 
-This project is not available online because is needed to implement user validation, otherwise the application will show all files from all users. I have been using this project as personal project, but you can create an AWS S3 bucket and publish it on Heroku or Netlify and have your own upload images application :)
+This project is not available online because is needed to implement user validation, otherwise the application will show all files from all users. I have been using this project as a private application, but you can create an AWS S3 bucket and publish it on Heroku or Netlify and have your own upload images application :)
 
 ## Contributing
 
