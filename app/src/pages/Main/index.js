@@ -12,6 +12,27 @@ const Main = () => {
   const [uploadedFiles, setUploadedFiles] = useState([]);
   const [uploadingFiles, setUploadingFiles] = useState([]);
 
+  const handleLoadAllPosts = async () => {
+    const response = await api.get('posts');
+
+    setUploadedFiles(response.data.map(file => ({
+      id: file._id,
+      name: file.name,
+      readableSize: filesize(file.size),
+      preview: file.url,
+      uploaded: true,
+      url: file.url,
+    })));
+  }
+
+  useEffect(() => {
+    handleLoadAllPosts();
+
+    return () => {
+      uploadedFiles.forEach(file => URL.revokeObjectURL(file.preview));
+    }
+  }, []);
+
   const updateFile = (id, data) => {
     setUploadedFiles(uploadedFiles.map((uploadedFile) => (
       id === uploadedFile.id ? {...uploadedFile, ...data} : uploadedFile)));
