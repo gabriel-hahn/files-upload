@@ -8,9 +8,10 @@ import FileList from '../../components/FileList';
 
 import { Container, Content } from './styles';
 
+let uploadingFiles = [];
+
 const Main = () => {
   const [uploadedFiles, setUploadedFiles] = useState([]);
-  const [uploadingFiles, setUploadingFiles] = useState([]);
 
   const handleLoadAllPosts = async () => {
     const response = await api.get('posts');
@@ -34,7 +35,7 @@ const Main = () => {
   }, []);
 
   const updateFile = (id, data) => {
-    setUploadedFiles(uploadedFiles.map((uploadedFile) => (
+    setUploadedFiles((lastFilesState) => lastFilesState.map((uploadedFile) => (
       id === uploadedFile.id ? {...uploadedFile, ...data} : uploadedFile)));
   };
 
@@ -67,10 +68,10 @@ const Main = () => {
   };
 
   useEffect(() => {
-    uploadingFiles.forEach(handleProcessUpload);
-
     if (uploadingFiles.length > 0) {
-      setUploadingFiles([]);
+      uploadingFiles.forEach(handleProcessUpload);
+
+      uploadingFiles = [];
     }
   }, [uploadedFiles]);
 
@@ -87,7 +88,8 @@ const Main = () => {
       url: null,
     }));
 
-    setUploadingFiles([...uploadingFiles, ...newFiles]);
+    uploadingFiles.push(...newFiles);
+
     setUploadedFiles([...uploadedFiles, ...newFiles]);
   };
 
