@@ -34,7 +34,7 @@ const FileList = ({ files }) => (
 
           {uploadedFile.url && (
             <a
-              href="http://localhost:3333/files/c0c1385c8221501d034695c56bfef457-313696.jpg"
+              href={uploadedFile.url}
               target="_blank"
               rel="noopener noreferrer"
             >

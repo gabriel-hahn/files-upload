@@ -30,6 +30,18 @@ const Main = () => {
           progress,
         });
       }
+    }).then((response) => {
+      const { _id, url } = response.data;
+
+      updateFile(uploadedFile.id, {
+        uploaded: true,
+        id: _id,
+        url,
+      });
+    }).catch(() => {
+      updateFile(uploadedFile.id, {
+        error: true,
+      });
     });
   };
 
