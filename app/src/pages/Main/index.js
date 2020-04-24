@@ -70,11 +70,17 @@ const Main = () => {
     setUploadedFiles([...uploadedFiles, ...newFiles]);
   };
 
+  const handleDelete = async (id) => {
+    await api.delete(`posts/${id}`);
+
+    setUploadedFiles(uploadedFiles.filter(file => file.id !== id));
+  };
+
   return (
     <Container>
       <Content>
         <Upload onUpload={handleUpload} />
-        {!!uploadedFiles.length && <FileList files={uploadedFiles} />}
+        {!!uploadedFiles.length && <FileList files={uploadedFiles} onDelete={handleDelete} />}
       </Content>
     </Container>
   );
